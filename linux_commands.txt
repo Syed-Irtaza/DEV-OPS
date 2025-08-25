@@ -1,0 +1,203 @@
+Linux commands
+1. pwd = shows present working directory path
+2. cd <directory_Name/directory_Path> = change directory, help to move in directories
+3. man <command_name> = shows the manual of the command means what the command exactly do
+4. cat <filename> = this command will concatenate the files and display their data on the terminal
+5. cat -n <filename> = add numbering to the lines in the file
+6. cat -b <filename> = add numbering to the non-blank lines in the file
+7. cat -s <filename> = squeeze multiple adjacent blank lines into one
+8. cat -E <filename> = shows $ (dollar) sign at the end of every line
+9. cat > <filename> = create the file and enables us to write its contents on the terminal and then press Ctrl+D to save it
+10. cat >> <filename> = same as cat > but it open the existing file in append mode
+11. cp <filename> <directory path where we want to save the copy of the mentioned file>
+12. mv <flag> <filename to be copied> <destination directory path to be moved>
+13. rm <filename> =  removes the filename
+14. rm -r <directory name> = removes the directory
+15. grep <word to be searched> <filename> = searches the particular word in the provided file
+16. sort <filename> = sort the content of the file in alphabetic order on the basis of the first alphabet of the word and content must not be single line ... 
+sort -r will sort in reverse order
+sort -n will sort the numerical content in the file
+
+17. in linux based OS there are users who owns the file, and there are some properties that are associated with them like their userID and home directory, based on that ownership of files some user are restricted to some files as they don't own them and to make this whole process easier we make group which contains users and such groups owns the files and those users in that group share such files/directories ....... there is permission -> rules in linux based OS for the users, group and others, there are 3 types of permissions read, write, execute ....
+
+chown <new owner name> <filename whos owner u want to change> = change owner, command changes the owner of the file/directory/repo
+
+18. 0 = no permission at all
+1 = execute permission = x
+2 = write permission = w
+4 = read permission = r
+
+rwx = 4+2+1 = 7
+rw- = 4+2 = 6
+r-- = 4
+r-x = 4+1 = 5 
+
+thats how we can get the permission numbers for user/grps/others
+777 = rwxrwxrwx = read/write/excute permission for the = user/group/others
+
+chmod <permission number> <filename which permission mode u want to change> = it changes the mod/permission of the file/repo
+
+
+19. lsof = list open files, shows the list of open files(normal files, sockets, pipes,devices, directories) ... cuz in linux and unix everything is file
+
+lsof helps to find processes that are block or blocking someother process
+sudo lsof -i :8080 = find the process which is using the port 8080
+lsof -i shows all network connections 
+
+20. id = command is used to display the id (userID, groupID) along with usernames
+
+21. tar -cvf <filename> <source-folder> = this command is used to zip the file/folder
+
+22. tar -xvf <tar-file which is zipped> = this command is used to unzip the file/folder that is zipped in tar format
+
+23. cut -c[from]-[to] <filename> = shows the content of the file mentioned in the number of columns mentioned like  'cut -c1-4 syed.txt' it shows the content of the file in 4 columns 
+
+24. sed 's/old-word/new-word/ <filename> = this command is used to replace the particular word with the new word in the provided file
+
+25. uniq <filename> = this command is used to remove the repeated content lines from the file
+
+26. watch <flag> <command which u want to run after some fixed interval> = this command is used to run the mentioned command repeatedly after some fixed interval of time (by default it is 2 secs) you can change it by using this command 'watch -n <time in seconds>' like watch -n 5 ls ... ls command will run after every 5 seconds of time .... watch -d <command> it changes the color of the output if anything changes in the output of the running command
+
+27. eval "command in string" = the eval command takes the arguments in string and tells the shell to re-evaluate the command mentioned in double and interprets it as a command ... simply eval say take this text, re-evaluate it as if I typed it directly in the shell 
+
+we can also do this 
+cmd = "ls -l"
+eval $cmd
+
+useful for dynamic scripting 
+useful when we want strings to be treated as actual commands
+
+28. history = this command is used to dislpay all the commands then we have used until now .... history [number] = is used to display last 5 commands that we have used 
+
+
+29. dd is command line utility for unix and unix like OS, its common purpose it convert and copy files, its command line syntax is option=value, for example if we want to backup entire hard-disk into someother hard-disk connected to the same machine we will use this dd utility
+like: 
+	dd if = /dev/hda of = /dev/hdb
+if =  input file
+op = output file
+
+/dev/hda = source file hard-disk
+/dev/hdb = target file hard-disk
+
+make sure don't interchange the their position otherwise whole data will be lost
+
+syntax:
+	dd if = <input_file> of = <output_file> [option]
+
+concept:
+	dd stands for 'data duplicator' and it can be 'disk destroyer' if misused
+	it is used to copy and convert raw data at a very low level(byte-by-byte)
+	like cp but cp works at the filesystem level, and dd works at the block level directly with disks, partitions, ISO files etc
+	
+30. free <flags> = this command is used to display the memory info
+	flags = -m -> shows memory in megabytes
+		-g -> shows memory in gigabytes 
+		etc
+
+31. SSH = means secure shell, it is used to connect two remote machines (insecure hosts), over the untrusted network, basically it some kind of a program, it helps to access machine remotely, run commands on them, it follows some protocols which makes the network secure, communication secure. 
+	node = remote machine/PC connected over the network
+
+if we want to access master machine we will run this command on slave machine = ssh master-ip
+if we want to access slave machine we will run this command on master machine = ss slave-ip
+
+
+ssh-keygen -t rsa = is used to generate a public-private authentication keypair it will allows us to connect to a remote system without supplying the password, and those keys will be specific to the users, like if root user generates the key only root user can use them
+
+
+SSH is a protocol that lets us to connect another device(usually a server) securely over the network, it usually encrypts the communication so can nobody steal data or password in between
+
+syntax:
+	ssh [user]@[hostname or ip]
+	ssh [user]@[example.com] = if server has domain
+	
+	
+	------------ ip = internet protocol(rules) => its the address of our machine on the network----------- 
+32. ip [object] [command] [options] = this command is used to view and manage network settings in linux 
+object = addr, link, route
+command = show, add, del
+
+examples : 
+	ip addr show = shows the ip address
+	ip link show = shows the network interfaces(connection point where we are connected)
+	ip route show = shows the routing table
+	
+So basically there are 3 types of network interfaces(connection points) means connection type through which we connect to other devices over the network 1. loopback talk to urself before going to other for better performance 2. wifi card wirless connection 3. ethernet wired connection
+
+conceptual:
+	ip command is used to perform several network administration tasks and also used to show , manage , manipulate routing devices and tunnels
+
+A network interface is the hardware or virtual point that connects your computer to a network (or to itself).
+
+33. ifconfig [options] [interface] = this command is used to configure network interfaces(ip addresses, status, etc), it comes from the net-tools package and ifconfig stands for interface configurator
+example:
+	ifconfig = shows all active interfaces(connection points) like ip address, mac address, status
+	ifconfig -a = shows even inactive ones
+	ifconfig -s = shows a short summary(statistics) of all network interfaces in table format
+
+note:
+	ifconfig not maintained by linux from several past years and being deprecated and instead we use ip command which is more powerful and comes with several functionalities its like a swiss knife.
+
+34. netstat = display network related info like network interfaces, routing tables, interface statistics, netstat is network statistics
+syntax:
+	netstat -a = shows all listening and non-listening ports/sockets
+	netstat -at = shows all tcp ports
+	
+35. nslookup [option] [hostname | IP address] = this command is used to query the DNS(domain name server) server to find the IP address of a domain or vice-versa like google.com 
+example:
+	nslookup google.com = give ip of server where google.com is hosted
+	nslookup 8.8.8.8 = return's the domain name for google's public DNS server
+	nslookup -type=mx gmail.com = shows mail server responsible for gmail
+	nslookup -type=ns openai.com = Lists the all DNS servers for the domain
+
+36. curl = this command is used to transfer data to or from a server using any of supported protocol like HTTP, HTTPS, FTP, SMTP, SCP ... and curl is powered lip curl ... this tool is used for automation .... curl means client URL
+syntax:
+	curl [options] [URL]
+example:
+	curl https://google.com = this will show the HTML source code of the website
+	curl -o page.html URL = will save the page into page.html
+
+
+
+36. awk = is scripting language(build on the top of programming language used to automate or simplify the tasks) ... awk is used for data manipulation and for generating reports ... as awk is scripting language which interpreted and not need to be compiled ... so in awk we can use varibles, numeric functions, logical operators and string functions 
+
+awk '/ali/ {print}' awktest.txt = prints the whole line which contains the given name 'ali'
+
+
+37.  TR command is used to translating, deleting, toLoweringCase, toUpperCase conversion, replace and find characters, and also squeezes the repeated characters and we can do complex translation using UNIX pipes
+example:
+	cat awktest.txt | tr "[a-z]" "[A-Z]" = characters in the awktest.txt will be converted to UPPER CASE
+	
+	
+38. env = command is used to access the environment variables and also used to run commands in custom environment ...  also used by shell scripts to launch a correct interpreter ... also used to run commands in an empty environment means an environment where no environment variables yet setted basically the program start with a blank state it does not know who the user is, where the home directory is, or where to look for commands ... it simply runs
+
+env -i bash = run new shell without any env variable 
+
+39. IP TABLES 
+commands:
+	service iptables stop
+
+
+40. apt or apt-get is a command line tool which helps in handling packages in linux, it retrieve the info and packages from authenticated sources for upgrade and installation and removal of packages long with the dependencies ... apt = advance packaging tool
+example:
+	 sudo apt install git = installs the git software
+	 
+	 
+41. sudo df -h
+explanation:
+	df= disk free, it shows how much storage is used and free on our disk partition and, -h = means dislpay info in human readable not in bit or bytes instead used KB, MB or GB
+	df -h = "Show me how full my disks are in GB/MB format."
+	
+42. sudo du -h -d 1 /var/
+explanation:
+	du = disk usage, it shows how much space files and directories take and, -h = display info in human readable format like in MB, KB or GB and not in bytes 
+	-d 1 = depth 1 means not go into sub-folders of mentioned folder just one folder depth
+	du -h -d 1 /var/ = "Show me which subfolders in /var/ are using space, but only the first level."
+
+study about shell and shell scripting and run a program from the shell like bash file.sh also about kernal its working and stuff 
+
+SHELL :  shell is a command-line-interpreter basically a special computer program that provides user interface where user can write specialized commands designed for specific works and let the user to interact with kernel of Operating System which is the core part of any OS and by using this can talk to our system and control it , automate the tasks and interact with files, programs and processes
+
+Shell Scripting : it is the process of writing sequence of shell commands in text file with the extension of .sh means shell, it is useful when we want to write multiple commands and want to execute them instead of writing them line by line, and we can execute that file using bash, specifically used to automate the tasks
+
+
+Bash = bourne again Shell, it is the most popular shell in linux, linux based OS commonly use bash shell
